@@ -41,8 +41,10 @@
 <div class="btnSet">
 	<a class="btn-fill" href="list.qna">목록으로</a>
 	<!-- 관리자인 경우 수정 삭제 가능 -->
-	<core:if test="${login_info.admin eq 'Y' }">
+	<core:if test="${login_info.id eq vo.writer}">
 		<a class="btn-fill" href="modify.qna?id=${vo.id }">수정</a>
+	</core:if>
+	<core:if test="${login_info.id eq vo.writer or login_info.admin eq'Y' }">	
 		<a class="btn-fill" onclick="if(confirm('정말 삭제하시겠습니까?')) { href='delete.qna?id=${vo.id }' }">삭제</a>
 	</core:if>
 	<!-- 로그인이 된 경우 답글 쓰기 가능 -->
