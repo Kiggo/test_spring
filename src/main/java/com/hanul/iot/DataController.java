@@ -11,7 +11,7 @@ import common.CommonService;
 
 @Controller
 public class DataController {
-	private String key = "FPgj2NXbJw46TcGkmAfZEiYFDbxilys7KLjk3KaB7AfeJE00ZhPNM0M8unwbsI69fSmT8SNfVEimE6ZZ2U14hA%3D%3D"; 
+	private String key = "tq%2FiqMbknie%2BUQkioe4bygyx4Lh6PT5lSXtyksZ2NrVSIyRygd4T5WdMN5tKjONjvSkeHEJqxIpid6cc2iKIlA%3D%3D"; 
 	@Autowired private CommonService common;
 	
 	@RequestMapping("/list.da")
@@ -25,7 +25,7 @@ public class DataController {
 		@ResponseBody @RequestMapping(value="/data/pharmacy", produces="applications/json; charset=utf-8")
 		public String pharmarcy_list(int pageNo, int rows) {
 			StringBuilder url 
-				= new StringBuilder("http://apis.data.go.kr/B551182/pharmacyInfoService/getParmacyBasisList");
+				= new StringBuilder("http://apis.data.go.kr/B551182/hospInfoService1/getHospBasisList1");
 			url.append("?ServiceKey=" + key);
 			url.append("&_type=json");	//parameter가 _type이라 _가 붙음
 			url.append("&pageNo=" + pageNo);
