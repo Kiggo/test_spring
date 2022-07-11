@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -95,7 +96,7 @@
 </div>
 
 <div id="map-background"></div>
-<div id="map"></div>
+<div id="map"></div> <!-- 지도를 표시할  div -->
 
 
 <script type="text/javascript">
@@ -279,6 +280,17 @@ $(document).on('click', '.page-list a', function(){
 			};
 	
 	var map = new kakao.maps.Map(mapContainer, mapOption);
+	
+	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+	var mapTypeControl = new kakao.maps.MapTypeControl();
+
+	// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+	// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+	map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+
+	// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+	var zoomControl = new kakao.maps.ZoomControl();
+	map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 	
 	//마커가 표시될 위치입니다
 	var markerPosition = new kakao.maps.LatLng($(this).data('y'), $(this).data('x'));
