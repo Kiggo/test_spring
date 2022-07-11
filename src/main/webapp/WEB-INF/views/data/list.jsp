@@ -270,9 +270,8 @@ $(document).on('click', '.page-list a', function(){
 		return;
 	}
 	
-	$("#map, #map-background").css("display", "block");
-	//developers.google.com/maps/documentation/javascript/overview?_ga=2.124987530.1447651499.1595900798-1296965659.1595900772&hl=ko 구글 맵 플랫폼 자바스크립트 api
-	//var pos = {lat: $(this).data('y'), lng: $(this).data('x')}
+	$("#map, #map-background").css("display", "block"); // 지도 새창
+	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 			mapOption = {
 						center: new kakao.maps.LatLng($(this).data('y'), $(this).data('x')), //지도의 중심좌표
@@ -292,12 +291,21 @@ $(document).on('click', '.page-list a', function(){
 	// 마커가 지도위에 표시 되도록 설정합니다
 	marker.setMap(map);
 	
-	var iwContent = "<div>" + $(this).text() + "</div>" +'<a href="https://map.kakao.com/link/map/'+$(this).data("y"), $(this).data("x")+' style="color:blue" target="_blank">큰지도보기</a>' // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-  		iwPosition = new kakao.maps.LatLng($(this).data('y'), $(this).data('x')); //인포윈도우 표시 위치입니다
-
+	//인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+	var iwContent = "<div>" + $(this).text() + "</div>"
+	+"<a href='https://map.kakao.com/link/map/"+$(this).text()+","+ $(this).data('y')
+	+','+ $(this).data('x') +" ' style='color:blue' target='_blank'>큰지도보기 </a>" 
+																											
+	+"<a href='https://map.kakao.com/link/to/"+$(this).text()+","+ $(this).data('y')
+	+','+ $(this).data('x') +" ' style='color:blue' target='_blank'>길찾기</a>"
+	
+  		
+			//인포윈도우 표시 위치입니다
+			iwPosition = new kakao.maps.LatLng($(this).data('y'), $(this).data('x')); 
+	
 //인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({
-   position : iwPosition, 
+   position : iwPosition,
    content : iwContent 
 });
  
@@ -315,7 +323,7 @@ var pageList = 10, blockPage = 10; //페이지당 보여질 목록 수, 블럭�
 
 </script>
 
-<!-- key=구글 API 키 -->
+<!--카카오 API 키 -->
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=205d2bb79b4a30e7954cec890e8a340b"></script>
 </body>
 </html>
