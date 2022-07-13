@@ -18,7 +18,7 @@ public class DataController {
 	public String data(HttpSession session) {
 		session.setAttribute("category", "da");
 		
-		return "data/list";
+		return "data/list2";
 	}
 	
 	//약국 정보 조회 요청

@@ -68,8 +68,8 @@
 <body>
 <h3>공공 데이터</h3>
 <div class="btnSet dataOption">
-	<a class="btn-fill">약국 조회</a>
-	<a class="btn-empty">유기 동물 조회</a>
+	<a class="btn-fill">주변 병원 조회</a>
+	<a class="btn-empty">주변 약국조회</a>
 </div>
 <div id="list-top">
 	<ul class="common">
@@ -177,10 +177,6 @@ function pageInfo (totalList, curPage, pageList, blockPage) {
 	page.beginPage = page.endPage - (blockPage - 1);
 	if( page.endPage > page.totalPage ) { page.endPage = page.totalPage; }
 	return page;
-}
-
-function animal_list() {
-
 }
 
 //테이블 목록 뷰 → 그리드뷰로 변경
@@ -310,6 +306,8 @@ $(document).on('click', '.page-list a', function(){
 																											
 	+"<a href='https://map.kakao.com/link/to/"+$(this).text()+","+ $(this).data('y')
 	+','+ $(this).data('x') +" ' style='color:blue' target='_blank'>길찾기</a>"
+	
+	+"<a href='#' style='color:blue' target='_blank'> 예약</a>"
 	
   		
 			//인포윈도우 표시 위치입니다
