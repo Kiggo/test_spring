@@ -46,6 +46,12 @@ public class BoardController {
 		return "board/list";
 	} //list()
 	
+	@RequestMapping("/reservation")
+	public String reservation() {
+		
+		return "reservation/list";
+	}
+	
 	//방명록 신규 화면 요청================================================================
 	@RequestMapping("/new.bo")
 	public String board() {

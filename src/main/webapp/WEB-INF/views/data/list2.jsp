@@ -15,14 +15,6 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=205d2bb79b4a30e7954cec890e8a340b"></script>
 <script>
 
-pharmacy_list(1);
-function pharmacy_list(page) {
-	$.ajax({
-		url:'data/pharmacy',
-		data: this.XPos + this.YPos + this.yadmNm
- 			});
-}
-
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 

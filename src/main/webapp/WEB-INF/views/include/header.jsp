@@ -49,9 +49,10 @@ header ul li input { display:block; }
 			<li><a href='list.cu' ${category eq 'cu' ? "class='active'" : '' } >고객 관리</a></li>
 			</core:if>
 			<li><a href='list.no' ${category eq 'no' ? "class='active'" : '' } >공지사항</a></li>
-			<li><a href='list.bo' ${category eq 'bo' ? "class='active'" : '' } >병원 평점</a></li>
-			<li><a href='list.da' ${category eq 'da' ? "class='active'" : '' } >전국 병원 조회</a></li>
+			<li><a href='list.bo' ${category eq 'bo' ? "class='active'" : '' } >병원 리뷰</a></li>
+			<li><a href='list.da' ${category eq 'da' ? "class='active'" : '' } >주변 병원 조회</a></li>
 			<li><a href='list.qna' ${category eq 'qna' ? "class='active'" : '' } >Q&A</a></li>
+			<li><a href='list.reservation' ${category eq 'reservation' ? "class='active'" : '' } >예약하기</a></li>
 		</ul>
 	</div>
 	

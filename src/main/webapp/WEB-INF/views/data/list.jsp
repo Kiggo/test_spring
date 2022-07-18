@@ -116,6 +116,7 @@ $('.dataOption a').click(function() {
 });
 
 pharmacy_list(1);
+
 function pharmacy_list(page) {
 	$.ajax({
 		url:'data/pharmacy',
