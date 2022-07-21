@@ -66,11 +66,8 @@
 </style>
 </head>
 <body>
-<h3>공공 데이터</h3>
-<div class="btnSet dataOption">
-	<a class="btn-fill">주변 병원 조회</a>
-	<a class="btn-empty">주변 약국조회</a>
-</div>
+<h3>예약 확인 </h3>
+
 <div id="list-top">
 	<ul class="common">
 		<li>
@@ -79,12 +76,6 @@
 				<option value="20">20개씩</option>
 				<option value="30">30개씩</option>
 			</select>
-		</li>
-		<li class="list-view" >
-			<i class="fas fa-list font-img" style="vertical-align:top;"></i>
-		</li>
-		<li class="grid-view" >
-			<i class="fas fa-th font-img" style="vertical-align:top;"></i>
 		</li>
 	</ul>
 </div>
@@ -100,20 +91,7 @@
 
 
 <script type="text/javascript">
-var viewType="list";
 
-$('.dataOption a').click(function() {
-	//이미 선택된 내용에 대해서는 적용하지 않으려면
-	if( $(this).hasClass('btn-empty') ) {
-		$('.dataOption a').removeClass();
-		$(this).addClass('btn-fill');
-		var idx = $(this).index();
-		$('.dataOption a:not(:eq(' + idx + '))').addClass('btn-empty');
-	
-		if( idx == 0) { pharmacy_list(1); }
-		else { animal_list(); }
-	}
-});
 
 pharmacy_list(1);
 
@@ -122,22 +100,20 @@ function pharmacy_list(page) {
 		url:'data/pharmacy',
 		data: { pageNo: page, rows:$('#pageList').val() },
 		success: function(data) {
-			if(viewType=="list") { pharmacy_list_data($(data.item), 0); }
-			else { pharmacy_grid_data($(data.item), 0); }
 			
-			//console.log(data) //한글이 깨지는 현상 발생해서 commonservice와 컨트롤러에서 utf-8로 인코딩해줘야함
-// 			var tag = "<table class='pharmacy'>"
-// 				+ '<tr><th class="w-px200">약국명</th><th class="w-px140" >전화번호</th><th>주소</th></tr>';
-//				
-// 			$(data.item).each(function(){
-// 				tag += "<tr>"
-// 						+ "<td><a class='map' data-x=" + this.XPos + " data-y=" + this.YPos + ">" + this.yadmNm + "</a></td><td>"
-// 						+ (this.telno ? this.telno : '-') + "</td><td class='left'>" + this.addr + "</td>"
-// 					+ "</tr>";
-// 			});
+			console.log(data) //한글이 깨지는 현상 발생해서 commonservice와 컨트롤러에서 utf-8로 인코딩해줘야함
+ 			var tag = "<table class='pharmacy'>"
+ 				+ '<tr><th class="w-px200">약국명</th><th class="w-px140" >전화번호</th><th>주소</th></tr>';
+				
+ 			$(data.item).each(function(){
+ 				tag += "<tr>"
+ 						+ "<td><a class='map' data-x=" + this.XPos + " data-y=" + this.YPos + ">" + this.yadmNm + "</a></td><td>"
+ 						+ (this.telno ? this.telno : '-') + "</td><td class='left'>" + this.addr + "</td>"
+ 					+ "</tr>";
+ 			});
 			
-// 			tag += "</table>";
-// 			$('#data-list').html(tag);
+ 			tag += "</table>";
+ 			$('#data-list').html(tag);
 			makePage( data.count, page );
 		}, error: function(text, req) {
 			alert(text + " : " + req.status)
@@ -180,67 +156,7 @@ function pageInfo (totalList, curPage, pageList, blockPage) {
 	return page;
 }
 
-//테이블 목록 뷰 → 그리드뷰로 변경
-function pharmacy_grid_data(data, type) {
-	var tag = "<ul class='pharmacy grid'>";
-	if(type == 0) {
-		data.each(function(){
-				tag += "<li>"
-					 	+"<div><a class='map' data-x='" + this.Xpos + "' data-y='" + this.Ypos + "'>" + this.yadmNm +"</a></div>"
-					 	+"<div>" + (this.telno ? this.telno : '-') +"</div>"
-					 	+"<div>" + this.addr +"</div>"
-					 + "</li>";
-		});
-	} else {
-		data.each(function() {
-			if( $(this).index() > 0 ) {
-				$a = $(this).find('.map');
-				tag += "<li>"
-					 	+"<div><a class='map' data-x='" + $a.data('x') + "' data-y='" + $a.data('y') + "'>" + $(this).children('td:eq(0)').text() +"</a></div>"
-					 	+"<div>" + $(this).children('td:eq(1)').text() +"</div>"
-					 	+"<div>" + $(this).children('td:eq(2)').text() +"</div>"
-					 + "</li>";
-			}
-		});
-	}
 
-	tag += "</ul>";
-	$("#data-list").html( tag );
-	$('#data-list ul').css('height', 
-			( ( $('.grid li').length % 5 > 0 ? 1 : 0 ) + Math.floor($('.grid li').length / 5) )
-			 * $('.grid li').outerHeight(true) - 20);
-}
-
-//그리드 뷰 → 테이블 목록 뷰로 변경
-function pharmacy_list_data(data, type) {
-	var tag = "<table class='pharmacy'>"
-			+ "<tr>"
-				+ "<th class='w-px200'>약국명</th>"
-				+ "<th class='w-px140'>전화번호</th>"
-				+ "<th>주소</th>"
-			+ "</tr>";
-	//type이 0이면 JSON 데이터를 가져옴, 1이면 화면의 텍스트를 가져옴
-	if(type == 0) {
-		data.each(function(){
-			tag += "<tr>"
-					+ "<td><a class='map' data-x=" + this.XPos + " data-y=" + this.YPos + ">" + this.yadmNm + "</a></td><td>"
-					+ (this.telno ? this.telno : '-') + "</td><td class='left'>" + this.addr + "</td>"
-				+ "</tr>";
-		});
-	} else {
-		data.each(function() {
-			var $a = $(this).find('.map');
-			tag += "<tr>"
-					+ "<td><a class='map' data-x='" + $a.data('x') + "' data-y='" + $a.data('y') + "'>" + $a.text() + "</a></td>"
-					+ "<td>" + $(this).children('div:eq(1)').text() + "</td>"
-					+ "<td class='left'>" + $(this).children('div:eq(2)').text() + "</td>";
-			tag += "</tr>";
-		});
-	}
-	
-	tag += "</table>";
-	$("#data-list").html(tag);
-}
 
 //$('.map').click(function(){  }); 페이지가 다 로딩되기전에 준비되는 함수라 작동이 안될수 있다.
 $(document).on('click', '.page-list a', function(){
@@ -335,6 +251,6 @@ var pageList = 10, blockPage = 10; //페이지당 보여질 목록 수, 블럭�
 </script>
 
 <!--카카오 API 키 -->
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=205d2bb79b4a30e7954cec890e8a340b"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c2f7b5031616b0f15dace96432c28222"></script>
 </body>
 </html>
